@@ -69,7 +69,8 @@ for i in linkList:
     seasons = details[2].text
     summary = filtered[1]
     generes = filtered[2][7:]
-    cast = filtered[3][5:]
+    castSep = filtered[3].split(':')
+    cast = castSep[1]
 
     print(title)
     print(thumbnail)
