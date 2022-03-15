@@ -5,7 +5,22 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from multiprocessing import Event, Process
 from time import sleep
-import database 
+# import database 
+
+class Moive(object):
+    def __init__(self, title, thumbnail, year, rating, maturity, seasons, summary, genres, cast, service):
+        self.title = title
+        self.thumbnail = thumbnail
+        self.year = year
+        self.rating = rating
+        self.maturity = maturity
+        self.seasons = seasons
+        self.summary = summary
+        self.genres = genres
+        self.cast = cast
+        self.service = service
+
+movieList = []
 
 options = webdriver.ChromeOptions()
 options.add_argument('--disable-notifications')
@@ -14,9 +29,11 @@ options.headless = True
 driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
 # newTabDriver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
 
+
+
 driver.maximize_window()
 
-database.connectDB()
+# database.connectDB()
 
 driver.get("https://flixable.com/?min-rating=0&min-year=1920&max-year=2023&order=rating#filterForm")
 linkList = []
@@ -43,7 +60,7 @@ def putInDB(linkList):
 
         filtered = toFilter.split('\n')
 
-        print(details)
+        # print(details)
 
         title = titleHold[0].text
         thumbnail = findimg.get_attribute('src')
@@ -59,11 +76,14 @@ def putInDB(linkList):
         maturity = details[1].text
         seasons = details[2].text
         summary = filtered[1]
-        generes = filtered[2][7:]
+        genres = filtered[2][7:]
         castSep = filtered[3].split(':')
         cast = castSep[1]
 
-        database.getConnection(title, thumbnail, year, rating, maturity, seasons, summary, generes, cast)
+
+        movieList.append(Moive(title, thumbnail, year, rating, maturity, seasons, summary, genres, cast, 'netflix'))
+
+        # database.getConnection(title, thumbnail, year, rating, maturity, seasons, summary, generes, cast)
 
 
 
@@ -84,18 +104,24 @@ last_height = driver.execute_script("return document.body.scrollHeight")
 
 reached_page_end = False
 
-while not reached_page_end:
-    driver.find_element_by_tag_name("body").send_keys(Keys.CONTROL, Keys.END); 
-    # driver.execute_script('window.scrollTo(0, document.body.scrollHeight);') 
-    sleep(1.5)
-    new_height = driver.execute_script("return document.body.scrollHeight")
-    if last_height == new_height:
-            reached_page_end = True
-            doIt()
-    else:
-            last_height = new_height
+# while not reached_page_end:
+#     driver.find_element_by_tag_name("body").send_keys(Keys.CONTROL, Keys.END); 
+#     # driver.execute_script('window.scrollTo(0, document.body.scrollHeight);') 
+#     sleep(1.5)
+#     new_height = driver.execute_script("return document.body.scrollHeight")
+#     if last_height == new_height:
+#             reached_page_end = True
+#             doIt()
+#     else:
+#             last_height = new_height
 
-# doIt()
+doIt()
+
+
+for i in range(len(movieList)):
+    print(movieList[i].title)
+    print(movieList[i].service)
+    print(movieList[i].genres)
 
 
 
@@ -106,4 +132,4 @@ while not reached_page_end:
 
 
 driver.quit()
-database.disableConnection()
+# database.disableConnection()

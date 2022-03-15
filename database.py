@@ -13,7 +13,6 @@ def connectDB():
                                             user='admin',
                                             password='password')
         
-           
 
     except Error as e:
         print("Error while connecting to MySQL", e)
@@ -68,6 +67,6 @@ def disableConnection():
             print("MySQL connection is closed")
 
 
-# connectDB()
+connectDB()
 # getConnection()
 # disableConnection()
