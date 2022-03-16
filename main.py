@@ -9,13 +9,14 @@ import database
 
 
 class Moive(object):
-    def __init__(self, title, thumbnail, year, rating, maturity, seasons, summary, genres, cast, service):
+    def __init__(self, title, thumbnail, year, rating, maturity, seasons, duration, summary, genres, cast, service):
         self.title = title
         self.thumbnail = thumbnail
         self.year = year
         self.rating = rating
         self.maturity = maturity
         self.seasons = seasons
+        self.duration = duration
         self.summary = summary
         self.genres = genres
         self.cast = cast
@@ -26,6 +27,14 @@ movieList = []
 
 options = webdriver.ChromeOptions()
 options.add_argument('--disable-notifications')
+options.add_argument("--disable-gpu")
+options.add_argument("start-maximized")
+options.add_argument("enable-automation")
+options.add_argument("--headless")
+options.add_argument("--no-sandbox")
+options.add_argument("--disable-infobars")
+options.add_argument("--disable-dev-shm-usage")
+options.add_argument("--disable-browser-side-navigation")
 options.headless = False
 driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
 
@@ -103,7 +112,8 @@ def doIt(links):
         filtered = toFilter.split('\n')
 
         print("--------------------------------------------------------------------------------------")
-        print(filtered)
+        for i in range(len(details)):
+            print(details[i].text)
         print("--------------------------------------------------------------------------------------")
 
         title = titleHold[0].text
@@ -117,8 +127,37 @@ def doIt(links):
         else:
             rating = NULL
         # rating = details[4].text
-        maturity = details[1].text
-        seasons = details[2].text
+
+        if len(details) == 2:
+            maturity = NULL
+            seasons = details[1].text
+            compare = seasons.split(' ')
+            if compare[1] == 'MIN':
+                seasons = NULL
+                duration = details[1].text
+            elif compare[1] == 'SEASONS' or compare[1] == 'SEASON': 
+                duration = NULL
+                seasons = details[1].text
+            else:
+                duration = NULL
+                seasons = NULL
+        else:
+            maturity = details[1].text
+
+
+            seasons = details[2].text
+            compare = seasons.split(' ')
+            if compare[1] == 'MIN':
+                seasons = NULL
+                duration = details[2].text
+            elif compare[1] == 'SEASONS' or compare[1] == 'SEASON': 
+                duration = NULL
+                seasons = details[2].text
+            else:
+                duration = NULL
+                seasons = NULL
+
+        
         summary = filtered[1]
 
         if links["service"] == 'disney-plus':
@@ -131,7 +170,8 @@ def doIt(links):
         cast = castSep[1]
 
         movieList.append(Moive(title, thumbnail, year, rating,
-                         maturity, seasons, summary, genres, cast, links["service"]))
+                         maturity, seasons, duration, summary, genres, cast, links["service"]))
+        print(movieList)
         
         
 

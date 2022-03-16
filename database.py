@@ -20,25 +20,9 @@ def connectDB():
 def getConnection(movieArray):
     if connection.is_connected():
 
-            burn_With_Fire = """DROP TABLE IF EXISTS Netflix"""
-
-            mySql_Create_Table_Query = """CREATE TABLE Netflix ( 
-                                Id int(11) AUTO_INCREMENT NOT NULL,
-                                Title varchar(250) NOT NULL,
-                                Thumbnail varchar(250),
-                                Year varchar(250) NOT NULL,
-                                Rating varchar(250) NOT NULL,
-                                Maturity varchar(250) NOT NULL,
-                                Seasons varchar(250) NOT NULL,
-                                Summary varchar(250) NOT NULL,
-                                Genres varchar(250) NOT NULL,
-                                Cast varchar(250) NOT NULL,
-                                Service varchar(250) NOT NULL,
-                                PRIMARY KEY (Id)) """
-
-            mySql_Insert_Data = """INSERT INTO Netflix (Title, Year, Rating, Maturity, Seasons, Summary, Genres, Cast, Thumbnail, Service) 
+            mySql_Insert_Data = """INSERT INTO Netflix (Title, Year, Rating, Maturity, Seasons,  Duration, Summary, Genres, Cast, Thumbnail, Service) 
                            VALUES 
-                           (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s) """
+                           (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s) """
 
 
             db_Info = connection.get_server_info()
@@ -50,7 +34,7 @@ def getConnection(movieArray):
            
 
             for i in movieArray:
-                data = (i.title, i.year, i.rating, i.maturity, i.seasons, i.summary, i.genres, i.cast, i.thumbnail, i.service)
+                data = (i.title, i.year, i.rating, i.maturity, i.seasons, i.duration, i.summary, i.genres, i.cast, i.thumbnail, i.service)
                 cursor.execute(mySql_Insert_Data, data)
                 connection.commit()
                 print("Entered successfully?")
@@ -75,9 +59,10 @@ def murderDB():
                                 Title varchar(250) NOT NULL,
                                 Thumbnail varchar(250),
                                 Year varchar(250) NOT NULL,
-                                Rating varchar(250) NOT NULL,
-                                Maturity varchar(250) NOT NULL,
-                                Seasons varchar(250) NOT NULL,
+                                Rating varchar(250),
+                                Maturity varchar(250),
+                                Seasons varchar(250),
+                                Duration varchar(250),
                                 Summary varchar(250) NOT NULL,
                                 Genres varchar(250) NOT NULL,
                                 Cast varchar(250) NOT NULL,
