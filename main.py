@@ -35,7 +35,7 @@ options.add_argument("--no-sandbox")
 options.add_argument("--disable-infobars")
 options.add_argument("--disable-dev-shm-usage")
 options.add_argument("--disable-browser-side-navigation")
-options.headless = False
+options.headless = True
 driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
 
 # newTabDriver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
@@ -132,15 +132,20 @@ def doIt(links):
             maturity = NULL
             seasons = details[1].text
             compare = seasons.split(' ')
-            if compare[1] == 'MIN':
-                seasons = NULL
-                duration = details[1].text
-            elif compare[1] == 'SEASONS' or compare[1] == 'SEASON': 
+            if len(compare) < 2:
+                maturity = compare[0]
                 duration = NULL
-                seasons = details[1].text
+                seasons = NULL
             else:
-                duration = NULL
-                seasons = NULL
+                if compare[1] == 'MIN':
+                    seasons = NULL
+                    duration = details[1].text
+                elif compare[1] == 'SEASONS' or compare[1] == 'SEASON': 
+                    duration = NULL
+                    seasons = details[1].text
+                else:
+                    duration = NULL
+                    seasons = NULL
         else:
             maturity = details[1].text
 
@@ -171,7 +176,6 @@ def doIt(links):
 
         movieList.append(Moive(title, thumbnail, year, rating,
                          maturity, seasons, duration, summary, genres, cast, links["service"]))
-        print(movieList)
         
         
 
