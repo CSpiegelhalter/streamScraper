@@ -48,8 +48,23 @@ linkList = []
 def doIt(links):
     # global lastAppended
     global linkList
- 
+
+    # last_height = driver.execute_script("return document.body.scrollHeight")
+
+
+    # reached_page_end = False
+
+    # while not reached_page_end:
+    #     driver.find_element_by_tag_name("body").send_keys(Keys.CONTROL, Keys.END);
+    #     # driver.execute_script('window.scrollTo(0, document.body.scrollHeight);')
+    #     sleep(1.5)
+    #     new_height = driver.execute_script("return document.body.scrollHeight")
+    #     if last_height == new_height:
+    #             reached_page_end = True
+    #     else:
+    #             last_height = new_height
     
+        
     
     
     driver.get(links["link"])
@@ -86,7 +101,9 @@ def doIt(links):
 
         filtered = toFilter.split('\n')
 
-        # print(details)
+        print("--------------------------------------------------------------------------------------")
+        print(filtered)
+        print("--------------------------------------------------------------------------------------")
 
         title = titleHold[0].text
         thumbnail = findimg.get_attribute('src')
@@ -102,7 +119,13 @@ def doIt(links):
         maturity = details[1].text
         seasons = details[2].text
         summary = filtered[1]
-        genres = filtered[2][7:]
+
+        if links["service"] == 'disney-plus':
+            genres = filtered[3][7:]
+        else:
+            genres = filtered[2][7:]
+
+
         castSep = filtered[3].split(':')
         cast = castSep[1]
 
@@ -112,24 +135,14 @@ def doIt(links):
         
 
 
-# last_height = driver.execute_script("return document.body.scrollHeight")
 
-
-reached_page_end = False
-
-# while not reached_page_end:
-#     driver.find_element_by_tag_name("body").send_keys(Keys.CONTROL, Keys.END);
-#     # driver.execute_script('window.scrollTo(0, document.body.scrollHeight);')
-#     sleep(1.5)
-#     new_height = driver.execute_script("return document.body.scrollHeight")
-#     if last_height == new_height:
-#             reached_page_end = True
-#             doIt()
-#     else:
-#             last_height = new_height
 
 
 links = [
+    {
+        "link": "https://flixable.com/disney-plus/?min-rating=0&min-year=1920&max-year=2023&order=rating#filterForm",
+        "service": "disney-plus"
+    },
     
     {
         "link": "https://flixable.com/amazon-prime-video/?min-rating=0&min-year=1920&max-year=2023&order=rating#filterForm",
@@ -139,10 +152,7 @@ links = [
         "link": "https://flixable.com/?min-rating=0&min-year=1920&max-year=2023&order=rating#filterForm",
         "service": "netflix"
     },
-    {
-        "link": "https://flixable.com/disney-plus/?min-rating=0&min-year=1920&max-year=2023&order=rating#filterForm",
-        "service": "disney-plus"
-    },
+    
     {
         "link": "https://flixable.com/hbo-max/?min-rating=0&min-year=1920&max-year=2023&order=rating#filterForm",
         "service": "hbo-max"
