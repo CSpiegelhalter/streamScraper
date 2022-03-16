@@ -26,7 +26,7 @@ movieList = []
 
 options = webdriver.ChromeOptions()
 options.add_argument('--disable-notifications')
-options.headless = True
+options.headless = False
 driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
 
 # newTabDriver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
@@ -49,26 +49,26 @@ def putInDB(movieList):
 def doIt(links):
     # global lastAppended
     global linkList
+    driver.get(links["link"])
+    last_height = driver.execute_script("return document.body.scrollHeight")
 
-    # last_height = driver.execute_script("return document.body.scrollHeight")
 
+    reached_page_end = False
 
-    # reached_page_end = False
-
-    # while not reached_page_end:
-    #     driver.find_element_by_tag_name("body").send_keys(Keys.CONTROL, Keys.END);
-    #     # driver.execute_script('window.scrollTo(0, document.body.scrollHeight);')
-    #     sleep(1.5)
-    #     new_height = driver.execute_script("return document.body.scrollHeight")
-    #     if last_height == new_height:
-    #             reached_page_end = True
-    #     else:
-    #             last_height = new_height
+    while not reached_page_end:
+        driver.find_element_by_tag_name("body").send_keys(Keys.CONTROL, Keys.END)
+        # driver.execute_script('window.scrollTo(0, document.body.scrollHeight);')
+        sleep(2)
+        new_height = driver.execute_script("return document.body.scrollHeight")
+        if last_height == new_height:
+                reached_page_end = True
+        else:
+                last_height = new_height
     
         
     
     
-    driver.get(links["link"])
+    
 
     for i in driver.find_elements_by_tag_name("a")[::2]:
         linkList.append(i.get_attribute('href'))
