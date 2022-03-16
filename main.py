@@ -5,7 +5,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from concurrent import futures
 from time import sleep
-# import database
+import database
 
 
 class Moive(object):
@@ -34,15 +34,16 @@ driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
 
 # driver.maximize_window()
 
-# database.connectDB()
+database.connectDB()
 
 
 linkList = []
 
 
-# def putInDB(linkList):
+def putInDB(movieList):
 
-    # database.getConnection(title, thumbnail, year, rating, maturity, seasons, summary, generes, cast)
+    database.getConnection(movieList)
+    database.disableConnection()
 
 
 def doIt(links):
@@ -156,7 +157,11 @@ links = [
     {
         "link": "https://flixable.com/hbo-max/?min-rating=0&min-year=1920&max-year=2023&order=rating#filterForm",
         "service": "hbo-max"
-    }
+    },
+    {
+        "link": "https://flixable.com/hulu/?min-rating=0&min-year=1920&max-year=2023&order=rating#filterForm",
+        "service": "hulu"
+    },
 ]
 
 # with futures.ThreadPoolExecutor() as executor:  # default/optimized number of threads
@@ -170,12 +175,14 @@ links = [
 
 for i in range(len(links)):
     doIt(links[i])
-    for i in range(len(movieList)):
-        print(movieList[i].title)
-        print(movieList[i].service)
-        print(movieList[i].genres)
-        print("---------")
+    
+    # for i in range(len(movieList)):
+    #     print(movieList[i].title)
+    #     print(movieList[i].service)
+    #     print(movieList[i].genres)
+    #     print("---------")
+putInDB(movieList)
 
 
-# database.disableConnection()
+
 driver.quit()
