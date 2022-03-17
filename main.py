@@ -132,6 +132,8 @@ def doIt(links):
             maturity = NULL
             seasons = details[1].text
             compare = seasons.split(' ')
+            print(len(compare))
+            print(compare)
             if len(compare) < 2:
                 maturity = compare[0]
                 duration = NULL
@@ -152,15 +154,22 @@ def doIt(links):
 
             seasons = details[2].text
             compare = seasons.split(' ')
-            if compare[1] == 'MIN':
-                seasons = NULL
-                duration = details[2].text
-            elif compare[1] == 'SEASONS' or compare[1] == 'SEASON': 
+            print(len(compare))
+            print(compare)
+            if len(compare) < 2:
+                maturity = compare[0]
                 duration = NULL
-                seasons = details[2].text
+                seasons = NULL
             else:
-                duration = NULL
-                seasons = NULL
+                if compare[1] == 'MIN':
+                    seasons = NULL
+                    duration = details[2].text
+                elif compare[1] == 'SEASONS' or compare[1] == 'SEASON': 
+                    duration = NULL
+                    seasons = details[2].text
+                else:
+                    duration = NULL
+                    seasons = NULL
 
         
         summary = filtered[1]
