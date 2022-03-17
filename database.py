@@ -219,10 +219,10 @@ def makeHBO():
     disableConnection()
 
 
-makeAmazon()
-makeDisney()
-makeHBO()
-makeHulu()
+# makeAmazon()
+# makeDisney()
+# makeHBO()
+# makeHulu()
 
 
 # murderDB()
