@@ -81,4 +81,148 @@ def murderDB():
 
     disableConnection()
 
+
+def makeAmazon():
+    connectDB()
+    if connection.is_connected():
+
+            burn_With_Fire = """DROP TABLE IF EXISTS Amazon"""
+
+            mySql_Create_Table_Query = """CREATE TABLE Amazon ( 
+                                Id int(11) AUTO_INCREMENT NOT NULL,
+                                Title varchar(250) NOT NULL,
+                                Thumbnail varchar(250),
+                                Year varchar(250) NOT NULL,
+                                Rating varchar(250),
+                                Maturity varchar(250),
+                                Seasons varchar(250),
+                                Duration varchar(250),
+                                Summary varchar(250) NOT NULL,
+                                Genres varchar(250) NOT NULL,
+                                Cast varchar(250) NOT NULL,
+                                Service varchar(250) NOT NULL,
+                                PRIMARY KEY (Id)) """
+
+            db_Info = connection.get_server_info()
+            print("Connected to MySQL Server version ", db_Info)
+            global cursor
+            cursor = connection.cursor()
+
+            kill = cursor.execute(burn_With_Fire)
+            print("Killed")
+            result = cursor.execute(mySql_Create_Table_Query)
+            print("Amazon Table created successfully ")
+
+    disableConnection()
+
+
+def makeDisney():
+    connectDB()
+    if connection.is_connected():
+
+            burn_With_Fire = """DROP TABLE IF EXISTS Disney"""
+
+            mySql_Create_Table_Query = """CREATE TABLE Disney ( 
+                                Id int(11) AUTO_INCREMENT NOT NULL,
+                                Title varchar(250) NOT NULL,
+                                Thumbnail varchar(250),
+                                Year varchar(250) NOT NULL,
+                                Rating varchar(250),
+                                Maturity varchar(250),
+                                Seasons varchar(250),
+                                Duration varchar(250),
+                                Summary varchar(250) NOT NULL,
+                                Genres varchar(250) NOT NULL,
+                                Cast varchar(250) NOT NULL,
+                                Service varchar(250) NOT NULL,
+                                PRIMARY KEY (Id)) """
+
+            db_Info = connection.get_server_info()
+            print("Connected to MySQL Server version ", db_Info)
+            global cursor
+            cursor = connection.cursor()
+
+            kill = cursor.execute(burn_With_Fire)
+            print("Killed")
+            result = cursor.execute(mySql_Create_Table_Query)
+            print("Disney Table created successfully ")
+
+    disableConnection()
+
+
+
+def makeHulu():
+    connectDB()
+    if connection.is_connected():
+
+            burn_With_Fire = """DROP TABLE IF EXISTS Hulu"""
+
+            mySql_Create_Table_Query = """CREATE TABLE Hulu ( 
+                                Id int(11) AUTO_INCREMENT NOT NULL,
+                                Title varchar(250) NOT NULL,
+                                Thumbnail varchar(250),
+                                Year varchar(250) NOT NULL,
+                                Rating varchar(250),
+                                Maturity varchar(250),
+                                Seasons varchar(250),
+                                Duration varchar(250),
+                                Summary varchar(250) NOT NULL,
+                                Genres varchar(250) NOT NULL,
+                                Cast varchar(250) NOT NULL,
+                                Service varchar(250) NOT NULL,
+                                PRIMARY KEY (Id)) """
+
+            db_Info = connection.get_server_info()
+            print("Connected to MySQL Server version ", db_Info)
+            global cursor
+            cursor = connection.cursor()
+
+            kill = cursor.execute(burn_With_Fire)
+            print("Killed")
+            result = cursor.execute(mySql_Create_Table_Query)
+            print("Hulu Table created successfully ")
+
+    disableConnection()
+
+
+def makeHBO():
+    connectDB()
+    if connection.is_connected():
+
+            burn_With_Fire = """DROP TABLE IF EXISTS HBO"""
+
+            mySql_Create_Table_Query = """CREATE TABLE HBO ( 
+                                Id int(11) AUTO_INCREMENT NOT NULL,
+                                Title varchar(250) NOT NULL,
+                                Thumbnail varchar(250),
+                                Year varchar(250) NOT NULL,
+                                Rating varchar(250),
+                                Maturity varchar(250),
+                                Seasons varchar(250),
+                                Duration varchar(250),
+                                Summary varchar(250) NOT NULL,
+                                Genres varchar(250) NOT NULL,
+                                Cast varchar(250) NOT NULL,
+                                Service varchar(250) NOT NULL,
+                                PRIMARY KEY (Id)) """
+
+            db_Info = connection.get_server_info()
+            print("Connected to MySQL Server version ", db_Info)
+            global cursor
+            cursor = connection.cursor()
+
+            kill = cursor.execute(burn_With_Fire)
+            print("Killed")
+            result = cursor.execute(mySql_Create_Table_Query)
+            print("HBO Table created successfully ")
+
+    disableConnection()
+
+
+makeAmazon()
+makeDisney()
+makeHBO()
+makeHulu()
+
+
 # murderDB()
