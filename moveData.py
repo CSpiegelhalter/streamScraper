@@ -28,7 +28,6 @@ if connection.is_connected():
 
             db_Info = connection.get_server_info()
             print("Connected to MySQL Server version ", db_Info)
-            global cursor
             cursor = connection.cursor()
 
 
